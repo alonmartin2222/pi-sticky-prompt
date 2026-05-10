@@ -29,11 +29,14 @@
     "@mariozechner/pi-coding-agent": "*"
   },
   "pi": {
-    "extensions": ["./extensions/sticky-prompt.ts"]
+    "extensions": ["./extensions/sticky-prompt.ts"],
+    "video": "https://raw.githubusercontent.com/alonmartin2222/pi-sticky-prompt/main/assets/demo.mp4",
+    "image": "https://raw.githubusercontent.com/alonmartin2222/pi-sticky-prompt/main/assets/sticky-bar-expanded.png"
   },
   "files": [
     "extensions/",
     "PiStickyPrompt/",
+    "assets/",
     "Makefile",
     "README.md",
     "LICENSE"

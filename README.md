@@ -2,6 +2,8 @@
 
 > Always-on-top, full-width macOS prompt bar for [pi](https://github.com/earendil-works/pi).
 
+![sticky bar expanded](./assets/sticky-bar-expanded.png)
+
 Pi runs in normal terminal scrollback (not alternate-screen mode), so when
 you scroll the terminal up to read history, the input prompt scrolls out
 of view with everything else. **pi-sticky-prompt** solves that with a
@@ -11,6 +13,14 @@ domain socket.
 
 You can scroll the terminal as much as you want — the prompt stays glued
 to the bottom of the screen.
+
+### Demo
+
+[▶️ Watch the 40-second demo](./assets/demo.mp4) (also embedded on the [pi.dev catalog page](https://pi.dev/packages)).
+
+| Collapsed | Session picker |
+| --- | --- |
+| ![collapsed](./assets/sticky-bar-collapsed.png) | ![session picker](./assets/sticky-bar-session-picker.png) |
 
 ```
 ┌──────────────────────────────────┐         ┌──────────────────────────┐
