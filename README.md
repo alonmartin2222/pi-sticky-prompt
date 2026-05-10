@@ -17,11 +17,6 @@ to the bottom of the screen.
 ### Demo
 
 https://github.com/user-attachments/assets/4b8a7e41-6df2-4bf2-98d3-4cd1513aefd9
-<video src="https://github.com/alonmartin2222/pi-sticky-prompt/releases/download/v0.1.0/demo.mp4" controls muted playsinline width="800">
-  Your browser doesn't support the video tag. <a href="https://github.com/alonmartin2222/pi-sticky-prompt/releases/download/v0.1.0/demo.mp4">Download the demo</a>.
-</video>
-
-[▶️ Direct link to the 40-second demo](https://github.com/alonmartin2222/pi-sticky-prompt/releases/download/v0.1.0/demo.mp4) · also embedded on the [pi.dev catalog page](https://pi.dev/packages).
 
 | Collapsed | Session picker |
 | --- | --- |
