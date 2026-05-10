@@ -35,9 +35,7 @@
   },
   "files": [
     "extensions/",
-    "PiStickyPrompt/",
     "assets/",
-    "Makefile",
     "README.md",
     "LICENSE"
   ]

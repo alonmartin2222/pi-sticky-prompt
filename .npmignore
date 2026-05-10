@@ -1,0 +1,23 @@
+# Swift build output
+PiStickyPrompt/.build/
+PiStickyPrompt/.swiftpm/
+PiStickyPrompt/Package.resolved
+**/*.dSYM/
+**/*.o
+**/build.db
+**/*.yaml
+**/*.swift-version
+**/*.txt
+
+# Built app bundle (release artifact, not for the npm tarball)
+PiStickyPrompt.app/
+PiStickyPrompt.app.zip
+
+# macOS / editor cruft
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Already-installed deps if any
+node_modules/

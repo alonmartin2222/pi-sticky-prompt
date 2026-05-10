@@ -53,37 +53,55 @@ Tested with Ghostty, Terminal.app, iTerm2, Alacritty, WezTerm, kitty, and Warp.
 
 ## Install
 
-### As a pi package
+pi-sticky-prompt has two halves and each lives in the registry that
+fits it best:
+
+| Half | What it does | Where it lives |
+| --- | --- | --- |
+| **Extension** | Lets pi sessions expose themselves over a Unix domain socket so the HUD can find them | npm — `npm:pi-sticky-prompt` |
+| **HUD app** | The native macOS floating window itself | Homebrew cask — `pi-sticky-prompt` |
+
+### 1. Install the pi extension
 
 ```bash
-# from npm
 pi install npm:pi-sticky-prompt
-
-# or directly from the repo
-pi install git:github.com/alonmartin2222/pi-sticky-prompt
-
-# pin to a specific version
-pi install git:github.com/alonmartin2222/pi-sticky-prompt@v0.1.0
-
-# or from a local checkout
-pi install /path/to/pi-sticky-prompt
 ```
 
-That installs the **extension half** — the bridge that lets pi sessions
-expose themselves over a socket. You still need to build and launch the
-**HUD** once.
+Reload pi (`/reload`) or start a fresh session. Each session will now
+publish a socket + descriptor under `~/.pi/agent/sockets/`.
 
-### Build and launch the HUD
+### 2. Install the macOS HUD
+
+**Recommended — Homebrew:**
 
 ```bash
-cd "$(pi config | awk '/pi-sticky-prompt/ {print $2}')"   # or cd into the package directory directly
-make            # builds PiStickyPrompt.app in the current directory
-make install    # copies it to ~/Applications
-make run        # builds + opens it
+brew tap alonmartin2222/pi
+brew install --cask pi-sticky-prompt
 ```
 
-`make install` drops `PiStickyPrompt.app` into `~/Applications`. Add it
-to your Login Items in System Settings if you want it always running.
+First launch may show a Gatekeeper prompt because the app is ad-hoc
+signed — right-click `PiStickyPrompt.app` in `/Applications` and pick
+*Open* once to whitelist it.
+
+**Alternative — download the prebuilt zip from a GitHub release:**
+
+1. Grab `PiStickyPrompt.app.zip` from <https://github.com/alonmartin2222/pi-sticky-prompt/releases/latest>
+2. Unzip and drag `PiStickyPrompt.app` into `/Applications`
+
+**Alternative — build from source:**
+
+```bash
+git clone https://github.com/alonmartin2222/pi-sticky-prompt.git
+cd pi-sticky-prompt
+make install        # builds and copies the .app to ~/Applications
+make run            # builds + opens it
+```
+
+### 3. Launch
+
+Open `PiStickyPrompt.app` (Spotlight / Launchpad / `open -a PiStickyPrompt`).
+Add it to your Login Items in System Settings if you want it always
+running. Press **⌘⌥P** to toggle the bar.
 
 ## Usage
 
