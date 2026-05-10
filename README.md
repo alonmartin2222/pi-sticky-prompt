@@ -46,12 +46,14 @@ Tested with Ghostty, Terminal.app, iTerm2, Alacritty, WezTerm, kitty, and Warp.
 ### As a pi package
 
 ```bash
-# from npm (once published)
+# from npm
 pi install npm:pi-sticky-prompt
 
 # or directly from the repo
-pi install git:github.com/<owner>/pi-extensions
-# (point at whichever repo hosts this directory)
+pi install git:github.com/alonmartin2222/pi-sticky-prompt
+
+# pin to a specific version
+pi install git:github.com/alonmartin2222/pi-sticky-prompt@v0.1.0
 
 # or from a local checkout
 pi install /path/to/pi-sticky-prompt
@@ -230,7 +232,8 @@ deliberately avoids.
 
 ## Contributing
 
-Issues and PRs welcome. The codebase is intentionally small:
+Issues and PRs welcome at <https://github.com/alonmartin2222/pi-sticky-prompt>.
+The codebase is intentionally small:
 
 - `extensions/sticky-prompt.ts` — ~250 lines TypeScript
 - `PiStickyPrompt/Sources/PiStickyPrompt/*.swift` — ~900 lines Swift

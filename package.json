@@ -13,6 +13,14 @@
     "terminal"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alonmartin2222/pi-sticky-prompt.git"
+  },
+  "homepage": "https://github.com/alonmartin2222/pi-sticky-prompt#readme",
+  "bugs": {
+    "url": "https://github.com/alonmartin2222/pi-sticky-prompt/issues"
+  },
   "type": "module",
   "engines": {
     "node": ">=20"
