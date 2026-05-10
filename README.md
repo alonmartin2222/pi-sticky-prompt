@@ -44,12 +44,14 @@ https://github.com/user-attachments/assets/4b8a7e41-6df2-4bf2-98d3-4cd1513aefd9
 
 ## Requirements
 
-- macOS 13+
+- macOS 13+ (Apple Silicon)
 - A pi installation (`@mariozechner/pi-coding-agent`)
-- Xcode command-line tools for building the HUD: `xcode-select --install`
-- Swift 5.9+ (ships with current macOS)
+- [Homebrew](https://brew.sh) (for installing the HUD app)
 
 Tested with Ghostty, Terminal.app, iTerm2, Alacritty, WezTerm, kitty, and Warp.
+
+> Building from source additionally requires Xcode command-line tools
+> (`xcode-select --install`) and Swift 5.9+ — see [Development](#development).
 
 ## Install
 
@@ -88,14 +90,7 @@ signed — right-click `PiStickyPrompt.app` in `/Applications` and pick
 1. Grab `PiStickyPrompt.app.zip` from <https://github.com/alonmartin2222/pi-sticky-prompt/releases/latest>
 2. Unzip and drag `PiStickyPrompt.app` into `/Applications`
 
-**Alternative — build from source:**
-
-```bash
-git clone https://github.com/alonmartin2222/pi-sticky-prompt.git
-cd pi-sticky-prompt
-make install        # builds and copies the .app to ~/Applications
-make run            # builds + opens it
-```
+**Alternative — build from source:** see [Development](#development) below.
 
 ### 3. Launch
 
@@ -258,6 +253,45 @@ deliberately avoids.
   (the binary is built for `arm64` only by default — drop in a
   universal slice in `make-app.sh` if needed).
 
+## Development
+
+You only need this section if you're hacking on the source. End users
+should use [Homebrew](#2-install-the-macos-hud) instead.
+
+### Prerequisites
+
+- Xcode command-line tools: `xcode-select --install`
+- Swift 5.9+ (ships with current macOS)
+- Node.js ≥ 20 (for the extension half)
+
+### Build & run
+
+```bash
+git clone https://github.com/alonmartin2222/pi-sticky-prompt.git
+cd pi-sticky-prompt
+
+make debug          # fast rebuild for iteration
+make release        # optimised build + ad-hoc-signed .app bundle
+make install        # release build copied to ~/Applications
+make run            # release build + open the .app
+```
+
+Use `swift build -c debug` directly if you don't need the `.app` bundle.
+
+### Releasing a new version
+
+```bash
+npm version patch                    # bumps package.json + tags
+make release
+rm PiStickyPrompt.app.zip
+ditto -c -k --keepParent --rsrc --sequesterRsrc PiStickyPrompt.app PiStickyPrompt.app.zip
+shasum -a 256 PiStickyPrompt.app.zip   # paste into the cask
+git push --follow-tags
+# upload PiStickyPrompt.app.zip to the new release page on GitHub
+# bump version + sha in alonmartin2222/homebrew-pi/Casks/pi-sticky-prompt.rb
+npm publish
+```
+
 ## Contributing
 
 Issues and PRs welcome at <https://github.com/alonmartin2222/pi-sticky-prompt>.
@@ -265,10 +299,6 @@ The codebase is intentionally small:
 
 - `extensions/sticky-prompt.ts` — ~250 lines TypeScript
 - `PiStickyPrompt/Sources/PiStickyPrompt/*.swift` — ~900 lines Swift
-
-Build the Swift app with `make debug` to get faster rebuild loops while
-iterating. Use `swift build -c debug` directly if you don't need the
-`.app` bundle.
 
 The Carbon `RegisterEventHotKey` symbol signature is `'piPb'` (`0x70695062`)
 — historical, but kept stable so config files stay portable.
