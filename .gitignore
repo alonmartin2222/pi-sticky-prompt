@@ -1,0 +1,19 @@
+# Swift / SwiftPM
+PiStickyPrompt/.build/
+PiStickyPrompt/.swiftpm/
+PiStickyPrompt/Package.resolved
+
+# Built app bundle (release artifact)
+PiStickyPrompt.app/
+PiStickyPrompt.app.zip
+
+# macOS
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Node (pi installer drops node_modules in the package dir)
+node_modules/

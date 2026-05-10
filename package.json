@@ -1,0 +1,33 @@
+{
+  "name": "pi-sticky-prompt",
+  "version": "0.1.0",
+  "description": "Always-on-top, full-width macOS prompt bar for pi. A floating native window that survives terminal scrollback and lets you keep typing while you read scrollback history.",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "macos",
+    "prompt-bar",
+    "hud",
+    "always-on-top",
+    "ghostty",
+    "terminal"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "pi": {
+    "extensions": ["./extensions/sticky-prompt.ts"]
+  },
+  "files": [
+    "extensions/",
+    "PiStickyPrompt/",
+    "Makefile",
+    "README.md",
+    "LICENSE"
+  ]
+}
