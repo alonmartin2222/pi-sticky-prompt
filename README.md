@@ -280,17 +280,50 @@ Use `swift build -c debug` directly if you don't need the `.app` bundle.
 
 ### Releasing a new version
 
+The entire release is automated by
+[`scripts/release.sh`](scripts/release.sh) — one command from your local
+machine, no CI needed:
+
 ```bash
-npm version patch                    # bumps package.json + tags
-make release
-rm PiStickyPrompt.app.zip
-ditto -c -k --keepParent --rsrc --sequesterRsrc PiStickyPrompt.app PiStickyPrompt.app.zip
-shasum -a 256 PiStickyPrompt.app.zip   # paste into the cask
-git push --follow-tags
-# upload PiStickyPrompt.app.zip to the new release page on GitHub
-# bump version + sha in alonmartin2222/homebrew-pi/Casks/pi-sticky-prompt.rb
-npm publish
+scripts/release.sh           # patch bump (0.1.x → 0.1.x+1)
+scripts/release.sh minor     # 0.x.y → 0.(x+1).0
+scripts/release.sh major     # x.y.z → (x+1).0.0
+scripts/release.sh 0.4.7     # explicit version
 ```
+
+In order, the script:
+
+1. Preflights: clean tree, on `main`, in sync with origin, required CLIs
+   (`npm`, `gh`, `swift`, `ditto`, …) available, `gh` + `npm` both
+   authenticated as `alonmartin2222`, sibling Homebrew tap cloned.
+2. Runs `npm version <bump>` — bumps `package.json`, creates a commit
+   and a `vX.Y.Z` git tag.
+3. Builds the macOS HUD via `PiStickyPrompt/make-app.sh release`.
+4. Stamps `CFBundleShortVersionString` / `CFBundleVersion` in
+   `Info.plist` to the new version and re-signs ad-hoc.
+5. `ditto`-zips `PiStickyPrompt.app` → `PiStickyPrompt.app.zip` and
+   computes its SHA-256.
+6. Pushes `main` and the new tag to `origin`.
+7. `gh release create` — creates the GitHub release with auto-generated
+   changelog from the commits since the previous tag, and attaches the
+   zip.
+8. Bumps the cask in `~/git/pi-extensions/homebrew-pi`
+   (`Casks/pi-sticky-prompt.rb` — `version` and `sha256`), commits, pushes.
+9. Runs `npm publish` — the npm CLI prompts you for your 2FA OTP
+   interactively.
+
+One-time setup before the script will run:
+
+- `npm login` — authenticated as `alonmartin2222`.
+- `gh auth login` — authenticated as `alonmartin2222`. If your default
+  `gh` account is something else, drop a personal access token
+  (Contents: write on both `pi-sticky-prompt` and `homebrew-pi`) at
+  `~/.config/pi-sticky-prompt/github-token`; the script picks it up.
+- The tap repo cloned at `~/git/pi-extensions/homebrew-pi`.
+
+If any step fails, the script prints recovery instructions (how to undo
+the bump commit / delete the GitHub release / retry `npm publish`) so
+you never end up in a half-released state.
 
 ## Contributing
 
