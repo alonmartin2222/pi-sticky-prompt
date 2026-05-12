@@ -1,6 +1,6 @@
 {
   "name": "pi-sticky-prompt",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Always-on-top, full-width macOS prompt bar for pi. A floating native window that survives terminal scrollback and lets you keep typing while you read scrollback history.",
   "keywords": [
     "pi-package",
